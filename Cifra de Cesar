@@ -30,14 +30,14 @@ programa
 		senao{
 			escreva("Por favor, informe a frase que deseja descriptografar: " , "\n")
 			leia(frase)
-			escreva("Você sabe a chave em que a frase foi criptografada?: " , "\n" , "1) Sim, eu sei a chave ou 2)Não, eu não sei a chave" , "\n")
+			escreva("Você sabe a chave em que a frase foi criptografada?: " , "\n" , "1) Sim, eu sei a chave ou 2) Não, eu não sei a chave" , "\n")
 			leia(sabe)
 			se(sabe == 1){
 				escreva("Por favor, informe a chave:\n")
 				leia(chave)
 				u.aguarde(1000)
 			     limpa()
-				
+
 				 descriptografar(frase, chave)
 			}
 
