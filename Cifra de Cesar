@@ -1,0 +1,179 @@
+programa
+{
+	inclua biblioteca Util --> u
+	inclua biblioteca Tipos --> tip
+	inclua biblioteca Texto --> tex
+	const cadeia alfabeto[27] = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", " "}
+	
+	funcao inicio(){
+
+		inteiro decisao
+		cadeia frase
+		inteiro chave
+		inteiro sabe
+		
+		escreva("Informe se deseja: " , "\n" , "0) CRIPTOGRAFAR ou 1) DESCRITOGRAFAR " , "\n")
+		leia(decisao)
+
+		se(decisao == 0){
+			escreva("Por favor, informe a frase que deseja criptografar: " , "\n")
+			leia(frase)
+			escreva("Informe a chave que deseja:\n")
+			leia(chave)
+			u.aguarde(1000)
+			limpa()
+
+			criptografar(frase, chave)
+			
+		}
+
+		senao{
+			escreva("Por favor, informe a frase que deseja descriptografar: " , "\n")
+			leia(frase)
+			escreva("Você sabe a chave em que a frase foi criptografada?: " , "\n" , "1) Sim, eu sei a chave ou 2)Não, eu não sei a chave" , "\n")
+			leia(sabe)
+			se(sabe == 1){
+				escreva("Por favor, informe a chave:\n")
+				leia(chave)
+				u.aguarde(1000)
+			     limpa()
+				
+				 descriptografar(frase, chave)
+			}
+
+			senao{
+				u.aguarde(1000)
+				limpa()
+				sem_chave(frase)
+			}
+		}
+	}
+
+	funcao criptografar(cadeia texto, inteiro chave){
+
+		
+		
+		cadeia letra = ""
+		caracter letra_caracter = ' '
+		inteiro posicao
+		inteiro  numero_letras_frase
+		logico esta_no_alfabeto = falso
+
+	      numero_letras_frase = tex.numero_caracteres(texto)
+
+		//percorrer cada uma das letras da frase informada
+		para(inteiro y=0; y < numero_letras_frase; y++){
+
+			letra_caracter = tex.obter_caracter(texto, y)
+			
+			letra = tip.caracter_para_cadeia(letra_caracter)
+
+			esta_no_alfabeto = falso
+			
+			//para percorrer todo o alfabeto em busca da posicao da letra
+			para(inteiro i=0; i < 26; i++){
+			se(letra == alfabeto[i]){
+				//escreva("A letra ", letra, " está na posição: ", i)
+
+				posicao = i + chave
+				posicao = posicao % 26
+				
+				escreva(alfabeto[posicao])
+				esta_no_alfabeto = verdadeiro
+			pare
+			
+				} 		
+			}	
+			se(esta_no_alfabeto == falso){
+				escreva(letra)
+			}
+			
+		}
+	}//fim da funcao criptografar
+
+	funcao descriptografar(cadeia texto, inteiro chave){
+		
+		cadeia letra = ""
+		caracter letra_caracter = ' '
+		inteiro posicao
+		inteiro  numero_letras_frase
+		logico esta_no_alfabeto = falso
+
+	      numero_letras_frase = tex.numero_caracteres(texto)
+
+		//percorrer cada uma das letras da frase informada
+		para(inteiro x=0; x < numero_letras_frase; x++){
+
+			letra_caracter = tex.obter_caracter(texto, x)
+			
+			letra = tip.caracter_para_cadeia(letra_caracter)
+
+			esta_no_alfabeto = falso
+			
+			//para percorrer todo o alfabeto em busca da posicao da letra
+			para(inteiro i=0; i < 26; i++){
+			se(letra == alfabeto[i]){
+				//escreva("A letra ", letra, " está na posição: ", i)
+
+				posicao = i + chave
+				posicao = posicao % 26 
+				se(posicao < 0){
+					posicao = posicao + 26
+				}
+			   
+				escreva(alfabeto[posicao])
+				esta_no_alfabeto = verdadeiro
+			pare
+			
+				} 		
+			}	
+			se(esta_no_alfabeto == falso){
+				escreva(letra)
+			}
+			
+		}
+	}//fim da funcao descriptografar
+
+	funcao sem_chave(cadeia texto){
+		cadeia letra = ""
+		caracter letra_caracter = ' '
+		inteiro posicao
+		inteiro  numero_letras_frase
+		logico esta_no_alfabeto = falso
+
+	      numero_letras_frase = tex.numero_caracteres(texto)
+
+		para(inteiro chave = 0; chave < 26; chave++){
+			escreva("Essa é a chave: ", chave+1, "\n")
+			
+		//percorrer cada uma das letras da frase informada
+		para(inteiro l=0; l < numero_letras_frase; l++){
+
+			letra_caracter = tex.obter_caracter(texto, l)
+			
+			letra = tip.caracter_para_cadeia(letra_caracter)
+
+			esta_no_alfabeto = falso
+			
+			//para percorrer todo o alfabeto em busca da posicao da letra
+			para(inteiro a=0; a < 26; a++){
+			
+			se(letra == alfabeto[a]){
+				
+				posicao = a - chave + 26
+				posicao = posicao % 26 
+				escreva(alfabeto[posicao])
+				
+				esta_no_alfabeto = verdadeiro
+				
+				} 		
+			}	
+				se(esta_no_alfabeto == falso){
+				escreva(letra)
+					}
+				}
+			
+				escreva("\n")
+		    }
+	   }
+ }
